@@ -14,7 +14,7 @@ namespace App.Database
     {
         public static SqlConnection GetConnection()
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Nauka\Projekty\C#\App\App\App\Database\DbPatients.mdf;Integrated Security=True";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Nauka\Projekty\C#\PatientsRegistration\App\Database\DbPatients.mdf;Integrated Security=True";
             SqlConnection connection = new SqlConnection(connectionString);
 
             try
@@ -28,9 +28,9 @@ namespace App.Database
             return connection;
         }
 
-        public static void AddPatient(Patients patient)
+        public static void CreatePatient(Patients patient)
         {
-            string sql = "INSERT INTO DbPatients VALUES (NULL, @FirstName, @LastName, @Email, @Pesel, @PhoneNumber, @Adress)";
+            string sql = "INSERT INTO [dbo].[Table] VALUES (@FirstName, @LastName, @Email, @Pesel, @PhoneNumber, @Adress)";
 
             SqlConnection connection = GetConnection();
             SqlCommand command = new SqlCommand(sql, connection);
@@ -59,15 +59,15 @@ namespace App.Database
 
         public static void UpdatePatient(Patients patient, string id)
         {
-            string sql = "UPDATE DbPatients SET (FirstName = @FirstName, LastName = @LastName, Email = @Email, Pesel = @Pesel, " +
-                " PhoneNumber = @PhoneNumber, Adress = @Adress) WHERE ID = @PatientId";
+            string sql = "UPDATE [dbo].[Table] SET FirstName = @FirstName, LastName = @LastName, Email = @Email, Pesel = @Pesel, " +
+                " PhoneNumber = @PhoneNumber, Adress = @Adress WHERE ID = @Id";
 
             SqlConnection connection = GetConnection();
             SqlCommand command = new SqlCommand(sql, connection);
 
             command.CommandType = CommandType.Text;
-            
-            command.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
+
+            command.Parameters.Add("@ID", SqlDbType.VarChar).Value = id;
             command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = patient.FirstName;
             command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = patient.LastName;
             command.Parameters.Add("@Email", SqlDbType.VarChar).Value = patient.Email;
@@ -90,7 +90,7 @@ namespace App.Database
 
         public static void DeletePatient(string id)
         {
-            string sql = "DELETE FROM DbPatients WHERE Id = @Id";
+            string sql = "DELETE FROM [dbo].[Table] WHERE ID = @Id";
 
             SqlConnection connection = GetConnection();
             SqlCommand command = new SqlCommand(sql, connection);

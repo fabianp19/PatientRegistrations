@@ -23,27 +23,28 @@ namespace App
 
         public void Display()
         {
-            DbPatient.Display("SELECT Id, FirstName, LastName, Email, Pesel, PhoneNumber, Adress FROM DbPatients", dataGridView1);
+            DbPatient.Display("SELECT Id, FirstName, LastName, Email, Pesel, PhoneNumber, Adress FROM [dbo].[Table]", dataGridView1);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             createPatient.Clear();
+            createPatient.AddPatient();
             createPatient.ShowDialog();
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private void Form1_Shown_1(object sender, EventArgs e)
         {
             Display();
         }
 
-        private void textSearch_TextChanged(object sender, EventArgs e)
+        private void textSearch1_TextChanged(object sender, EventArgs e)
         {
-            DbPatient.Display("SELECT Id, FirstName, LastName, Email, Pesel, PhoneNumber, Adress FROM DbPatients " +
+            DbPatient.Display("SELECT Id, FirstName, LastName, Email, Pesel, PhoneNumber, Adress FROM [dbo].[Table] " +
                 "WHERE FirstName LIKE '%" + textSearch1.Text + "%'", dataGridView1);
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if(e.ColumnIndex == 0)
             {
@@ -56,7 +57,7 @@ namespace App
                 createPatient.phoneNumber = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
                 createPatient.adress = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
 
-                createPatient.Update();
+                createPatient.UpdatePatient();
                 createPatient.ShowDialog();
 
                 return;
@@ -69,6 +70,7 @@ namespace App
                     DbPatient.DeletePatient(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
                     Display();
                 }
+                return;
             }
         }
     }

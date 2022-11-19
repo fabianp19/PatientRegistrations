@@ -26,6 +26,7 @@ namespace App
 
         public void UpdatePatient()
         {
+            Text = "UpdatePatient";
             label2.Text = "Aktualizacja danych";
             buttonSave.Text = "Aktualizuj";
             textFirstName.Text = firstName;
@@ -34,6 +35,12 @@ namespace App
             textPesel.Text = pesel;
             textPhoneNumber.Text = phoneNumber;
             textAdress.Text = adress;
+        }
+
+        public void AddPatient()
+        {
+            label2.Text = "Dodaj pacjenta";
+            buttonSave.Text = "Dodaj";
         }
 
         public void Clear()
@@ -78,7 +85,7 @@ namespace App
             {
                 Patients createPatient = new Patients(textFirstName.Text.Trim(), textLastName.Text.Trim(),
                     textEmail.Text.Trim(), textPesel.Text.Trim(), textPhoneNumber.Text.Trim(), textAdress.Text.Trim());
-                DbPatient.AddPatient(createPatient);
+                DbPatient.CreatePatient(createPatient);
                 Clear();
             }
             if (buttonSave.Text == "Aktualizuj")
