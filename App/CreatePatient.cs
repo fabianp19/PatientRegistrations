@@ -107,9 +107,9 @@ namespace App
 
         private bool IsPhoneNumberValid(string phoneNumber)
         {
-            Regex regexEmail = new Regex(@"^[0-9]{9}$");
+            Regex regexPhoneNumber = new Regex(@"^[0-9]{9}$");
 
-            return regexEmail.IsMatch(phoneNumber);
+            return regexPhoneNumber.IsMatch(phoneNumber);
         }
     }
 }
